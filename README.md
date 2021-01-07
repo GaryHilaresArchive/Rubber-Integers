@@ -7,10 +7,14 @@ git clone https://github.com/GaryNLOL/GIntegers.git
 ```
 2. Add the include files to your project's folder or to your compiler's search path.
 3. Add the following line to your `.cpp` file:
+If you added it to your project's folder:
 ```
 #include "include/GIntegers/GIntegers.hpp"
 ```
-(Change it to `#include <GIntegers/GIntegers.hpp>` if you added the file to your compiler's path).
+If you added it to your compiler's path:
+```
+#include <GIntegers/GIntegers.hpp>
+```
 4. You're ready to start using GIntegers!
 
 ## Structure
