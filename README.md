@@ -1,5 +1,17 @@
 # GIntegers
 GIntegers: Arbitrary Integer Size support for C++.
+## Setup
+1. Download the project from GitHub or clone the repository using the following command:
+```
+git clone https://github.com/GaryNLOL/GIntegers.git
+```
+2. Add the include files to your project's folder or to your compiler's search path.
+3. Add the following line to your `.cpp` file:
+```
+#include "include/GIntegers/GIntegers.hpp" //Change it to #include <GIntegers/GIntegers.hpp> if you added the file to your compiler's path.
+```
+4. You're ready to start using GIntegers!
+
 ## Structure
 ### GIntegers (namespace)
 #### GInt (class)
