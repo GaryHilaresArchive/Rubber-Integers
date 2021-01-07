@@ -1,4 +1,4 @@
-#include "GIntegers.hpp"
+#include "include/GIntegers/GIntegers.hpp"
 #include <iostream>
 
 int main()
