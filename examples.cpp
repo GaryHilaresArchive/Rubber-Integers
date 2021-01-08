@@ -13,7 +13,7 @@ int main()
     std::cout << "num1 = " << num1 << std::endl;
     std::cout << std::endl;
 
-    GInt num2 = num1 * -1 - 100;
+    GInt num2 = num1 * GInt(-1) - GInt(100);
     std::cout << "Lower than -1 * ULONG_LONG_MIN!" << std::endl;
     std::cout << "num2 = " << num2 << std::endl;
     std::cout << std::endl;
@@ -28,19 +28,19 @@ int main()
     std::cout << "num4 = num3 - num2 = num1 = " << num4 << std::endl;
     std::cout << std::endl;
 
-    GInt num5 = 6453 * 6758;
+    GInt num5 = GInt(6453) * GInt(6758);
     std::cout << "Multiplications" << std::endl;
     std::cout << "num5 = 6453 * 6758 = " << num5 << std::endl;
     std::cout << std::endl;
 
-    GInt num6 = GInt("477978547397979") / 14546;
+    GInt num6 = GInt("477978547397979") / GInt(14546);
     std::cout << "Divisions!" << std::endl;
     std::cout << "num6 = 477978547397979 / 14546 = " << num6 << std::endl;
     std::cout << std::endl;
 
     GInt num7 = GInt("477978547397979") % 14546;
     std::cout << "Modulus!!" << std::endl;
-    std::cout << "num7 = 477978547397979 % 14546 = " << num6 << std::endl;
+    std::cout << "num7 = 477978547397979 % 14546 = " << num7 << std::endl;
     std::cout << std::endl;
 
     GInt num8 = GInt(69).factorial();
@@ -51,10 +51,12 @@ int main()
     GInt num9 = GInt(INT_MIN).abs();
     GInt num10 = GInt(INT_MAX) * num9;
     GInt num11 = GInt(INT_MAX);
+    GInt num12 = GInt("0000000");
     std::cout << "And more!!!!!" << std::endl;
     std::cout << "num9 = | INT_MIN | = " << num9 << std::endl;
     std::cout << "num10 = num9 * INT_MAX = " << num10 << std::endl;
     std::cout << "num11 = INT_MAX, num11 <= num9 = " << (num11 <= num9 ? "True":"False") << std::endl;
+    std::cout << "num12 = " << num12 << std::endl;
     std::cout << std::endl;
 
     std::cout << "And even more, more, more is coming soon!" << std::endl;

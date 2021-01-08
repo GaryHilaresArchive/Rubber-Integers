@@ -46,14 +46,25 @@ namespace GIntegers
     private:
         std::string val;
         bool isNegative;
-        bool isValidInput(std::string str)
+        static bool isValidInput(const std::string& str)
         {
-            if(str.size() == 0)
+            if(str.size() == 0 || str == "-")
                 return false;
             for(std::string::size_type i = (str[0] == '-'); i < str.size(); i++)
                 if(!std::isdigit(str[i]))
                     return false;
             return true;
+        }
+        void deleteTrailingZeroes()
+        {
+            for(unsigned int i = 0; i < this->val.size(); i++)
+            {
+                if(this->val[i] != '0' || i == this->val.size()-1)
+                {
+                    this->val.erase(0,i);
+                    break;
+                }
+            }
         }
     public:
         GInt()
@@ -67,6 +78,7 @@ namespace GIntegers
                 throw std::invalid_argument("GInt::GInt(" + newVal + ")");
             this->isNegative = (newVal[0] == '-');
             this->val = newVal.substr(isNegative,newVal.size()-isNegative);
+            this->deleteTrailingZeroes();
         }
         template<typename int_type, typename = typename std::enable_if<std::is_integral<int_type>::value>::type>
         GInt(const int_type newVal)
@@ -101,17 +113,14 @@ namespace GIntegers
         {
             if(this->isNegative && !num2.isNegative)
             {
-                //This negative and other positive.
                 return false;
             }
             if(!this->isNegative && num2.isNegative)
             {
-                //This positive and other negative.
                 return true;
             }
             if(!this->isNegative && !num2.isNegative)
             {
-                //Both positive.
                 if(this->val.size() > num2.val.size())
                 {
                     return true;
@@ -122,7 +131,7 @@ namespace GIntegers
                 }
                 if(this->val.size() == num2.val.size())
                 {
-                    for(int i = this->val.size(); i >= 0; i--)
+                    for(std::string::size_type i = 0; i < this->val.size(); i++)
                     {
                         if(this->val[i] > num2.val[i])
                             return true;
@@ -134,7 +143,6 @@ namespace GIntegers
             }
             if(this->isNegative && num2.isNegative)
             {
-                //Both negative.
                 if(this->val.size() > num2.val.size())
                 {
                     return false;
@@ -145,7 +153,7 @@ namespace GIntegers
                 }
                 if(this->val.size() == num2.val.size())
                 {
-                    for(int i = this->val.size(); i >= 0; i--)
+                    for(std::string::size_type i = 0; i < this->val.size(); i++)
                     {
                         if(this->val[i] > num2.val[i])
                             return false;
@@ -203,59 +211,28 @@ namespace GIntegers
                 std::string answer;
                 int carry = 0;
                 bool resultIsNegative = negative > positive;
-                if(resultIsNegative)
+                for(int i = positive.val.size()-1, j = negative.val.size()-1; i >= 0 || j >= 0 || carry != 0; i--, j--)
                 {
-                    for(int i = positive.val.size()-1, j = negative.val.size()-1; i >= 0 || j >= 0 || carry != 0; i--, j--)
+                    int operand1 = (i >= 0) ? (positive.val[i] - '0'):0;
+                    int operand2 = (j >= 0) ? (negative.val[j] - '0'):0;
+                    int result;
+                    if(resultIsNegative)
+                        result = operand2 - (operand1 + carry);
+                    else
+                        result = operand1 - (operand2 + carry);
+                    if(0 > result)
                     {
-                        int operand1 = (i >= 0) ? (positive.val[i] - '0'):0;
-                        int operand2 = (j >= 0) ? (negative.val[j] - '0'):0;
-                        int result = operand2 - (operand1 + carry);
-                        if(0 > result)
-                        {
-                            carry = 1;
-                            result += 10;
-                        }
-                        else
-                        {
-                            carry = 0;
-                        }
-                        answer += char(result + '0');
+                        carry = 1;
+                        result += 10;
                     }
-                    answer = std::string(answer.rbegin(), answer.rend());
-                    for(unsigned int i = 0; i < answer.size(); i++)
-                        if(answer[i] != '0')
-                            answer.erase(0,i);
-                    return GInt("-" + answer);
+                    else
+                    {
+                        carry = 0;
+                    }
+                    answer += char(result + '0');
                 }
-                else
-                {
-                    for(int i = positive.val.size()-1, j = negative.val.size()-1; i >= 0 || j >= 0 || carry != 0; i--, j--)
-                    {
-                        int operand1 = (i >= 0) ? (positive.val[i] - '0'):0;
-                        int operand2 = (j >= 0) ? (negative.val[j] - '0'):0;
-                        int result = operand1 - (operand2 + carry);
-                        if(0 > result)
-                        {
-                            carry = 1;
-                            result += 10;
-                        }
-                        else
-                        {
-                            carry = 0;
-                        }
-                        answer += char(result + '0');
-                    }
-                    answer = std::string(answer.rbegin(), answer.rend());
-                    for(unsigned int i = 0; i < answer.size(); i++)
-                    {
-                        if(answer[i] != '0')
-                        {
-                            answer.erase(0,i);
-                            break;
-                        }
-                    }
-                    return GInt(answer);
-                }
+                answer = (resultIsNegative ? "-":"") + std::string(answer.rbegin(), answer.rend());
+                return GInt(answer);
             }
         }
         GInt operator-(const GInt& num2) const
@@ -330,27 +307,36 @@ namespace GIntegers
         }
         GInt operator/(const GInt& num2) const
         {
-            if(this->abs() < num2.abs())
+            const GInt dividend = this->abs();
+            const GInt divisor = num2.abs();
+            GInt remainder;
+            remainder.val = "";
+            std::string cocient;
+            unsigned int currentIndex = 0;
+            while(currentIndex < dividend.val.size())
             {
-                return GInt(0);
-            }
-            if(this->abs() <= GInt(LONG_LONG_MAX))
-            {
-                return GInt(std::stoll(this->to_string())/std::stoll(num2.to_string()));
-            }
-            else
-            {
-                GInt counter;
-                GInt dividend(this->abs());
-                GInt divisor(num2.abs());
-                while(dividend >= divisor)
+                if(currentIndex < dividend.val.size())
                 {
-                    dividend -= divisor;
-                    counter++;
+                    remainder.val += dividend.val[currentIndex];
+                    currentIndex++;
                 }
-                counter.isNegative = (this->isNegative != num2.isNegative);
-                return counter;
+                if(divisor > remainder)
+                {
+                    cocient += "0";
+                }
+                else
+                {
+                    unsigned int counter = 0;
+                    while(remainder >= divisor)
+                    {
+                        remainder -= divisor;
+                        counter++;
+                    }
+                    cocient += char(counter + '0');
+                }
             }
+            cocient = (this->isNegative == num2.isNegative ? "":"-") + cocient;
+            return GInt(cocient);
         }
         GInt operator/=(const GInt& num2)
         {
@@ -359,31 +345,37 @@ namespace GIntegers
         }
         GInt operator%(const GInt& num2) const
         {
-            if(this->abs() < num2.abs())
+            const GInt dividend = this->abs();
+            const GInt divisor = num2.abs();
+            GInt remainder;
+            remainder.val = "";
+            std::string cocient;
+            unsigned int currentIndex = 0;
+            while(currentIndex < dividend.val.size())
             {
-                return *this;
+                if(currentIndex < dividend.val.size())
+                {
+                    remainder.val += dividend.val[currentIndex];
+                    currentIndex++;
+                }
+                if(remainder >= divisor)
+                {
+                    unsigned int counter = 0;
+                    while(remainder >= divisor)
+                    {
+                        remainder -= divisor;
+                        counter++;
+                    }
+                }
             }
-            if(this->abs() <= GInt(LONG_LONG_MAX))
-            {
-                return GInt(std::stoll(this->to_string())%std::stoll(num2.to_string()));
-            }
-            else
-            {
-                GInt dividend(this->abs());
-                GInt divisor(num2.abs());
-                while(dividend >= divisor)
-                    dividend -= divisor;
-                GInt answer(dividend.val);
-                answer.isNegative = this->isNegative;
-                return answer;
-            }
+            return remainder;
         }
         GInt operator%=(const GInt& num2)
         {
             *this = *this % num2;
             return *this;
         }
-        GInt factorial()
+        GInt factorial() const
         {
             if(this->isNegative)
                 throw std::invalid_argument("GInt::factorial(" + this->val + ")");
