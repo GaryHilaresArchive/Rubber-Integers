@@ -251,24 +251,24 @@ namespace GIntegers
             *this = *this - num2;
             return *this;
         }
-        GInt operator++()
+        GInt operator++(int)
         {
             GInt ret = *this;
             *this = *this + GInt(1);
             return ret;
         }
-        GInt operator++(int)
+        GInt operator++()
         {
             *this = *this + 1;
             return *this;
         }
-        GInt operator--()
+        GInt operator--(int)
         {
             GInt ret = *this;
             *this = *this - GInt(1);
             return ret;
         }
-        GInt operator--(int)
+        GInt operator--()
         {
             *this = *this - GInt(1);
             return *this;
