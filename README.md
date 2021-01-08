@@ -49,29 +49,29 @@ git clone https://github.com/GaryNLOL/GIntegers.git
 
 `GInt operator-(const GInt& num2) const` -> Returns the value of the object minus `num2`.
 
-`GInt operator+=(const GInt& num2)` -> Sets the object's value to itself plus `num2` and returns the new object's value.
+`GInt operator+=(const GInt& num2)` -> Sets the object's value to itself plus `num2` and returns the object's new value.
 
-`GInt operator-=(const GInt& num2)` -> Sets the object's value to itself minus `num2` and returns the new object's value.
+`GInt operator-=(const GInt& num2)` -> Sets the object's value to itself minus `num2` and returns the object's new value.
 
-`GInt operator++()` -> Sets the object's value to itself plus 1 and returns the old object's value.
+`GInt operator++()` -> Sets the object's value to itself plus 1 and returns the object's old value.
 
-`GInt operator++(int)` -> Sets the object's value to itself plus 1 and returns the new object's value.
+`GInt operator++(int)` -> Sets the object's value to itself plus 1 and returns the object's new value.
 
-`GInt operator--()` -> Sets the object's value to itself minus 1 and returns the old object's value.
+`GInt operator--()` -> Sets the object's value to itself minus 1 and returns the object's old value.
 
-`GInt operator--(int)` -> Sets the object's value to itself minus 1 and returns the new object's value.
+`GInt operator--(int)` -> Sets the object's value to itself minus 1 and returns the object's new value.
 
 `GInt operator*(const GInt& num2) const` -> Returns the value of the object multiplied by `num2`.
 
-`GInt operator*=(const GInt& num2)` -> Sets the object's value to itself multiplied by `num2` and returns the new object's value.
+`GInt operator*=(const GInt& num2)` -> Sets the object's value to itself multiplied by `num2` and returns the object's new value.
 
 `GInt operator/(const GInt& num2) const` -> Returns the value of the object divided by `num2`.
 
-`GInt operator/=(const GInt& num2)` -> Sets the object's value to itself divided by `num2` and returns the new object's value.
+`GInt operator/=(const GInt& num2)` -> Sets the object's value to itself divided by `num2` and returns the object's new value.
 
 `GInt operator%(const GInt& num2) const` -> Returns the value of the object module `num2`.
 
-`GInt operator%=(const GInt& num2)` -> Sets the object's value to itself module `num2` and returns the new object's value.
+`GInt operator%=(const GInt& num2)` -> Sets the object's value to itself module `num2` and returns the object's new value.
 
 `GInt factorial()` -> Returns a GInt with the object's factorial.
 
