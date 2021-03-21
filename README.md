@@ -1,5 +1,12 @@
 # GIntegers
 GIntegers: Arbitrary Integer Size support for C++.
+
+## Platforms
+Completely cross-platform.
+
+## Dependencies
+None.
+
 ## Setup
 1. Download the project from GitHub or clone the repository using the following command:
 ```
