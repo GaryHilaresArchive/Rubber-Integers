@@ -1,25 +1,70 @@
 # GIntegers
-GIntegers: Arbitrary Integer Size support for C++.
+[![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/commits/main)
+[![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/issues)
+[![badge-license](https://img.shields.io/github/license/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/blob/main/LICENSE)
+[![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/graphs/contributors)
+[![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers)
+
+## What is GIntegers?
+GIntegers is an arbitrary integer size support library for C++.
+
+### Features
+- Scalable.
+- Free.
+- Open-source.
+- Simple.
+- Very readable.
 
 ## Platforms
-Completely cross-platform.
+- Cross-platform.
 
 ## Dependencies
 None.
 
-## Setup
-1. Download the project from GitHub or clone the repository using the following command:
+## Contributing
+### Pull requests
+We encourage you to make pull requests. To do so, follow those steps:
+1. Clone the repository.
+2. Start the repository in your local computer.
+3. Think about one issue or feature you want to work on or go to the issues sections of GitHub and pick one.
+4. Commit your changes.
+5. Push your changes to your fork.
+6. Create a pull request.
+That's it!
+
+### Feature requests
+If you want to request a feature, please do it in the Issues section. Additionally, mark it clearly as a feature request and then provide the maximum details you can. Follow this format:
+```markdown
+## Description:
+Describe your feature clearly.
+
+## Example outputs:
+Explain what is supposed to happen (e. g. what your function should return when is called).
+Post as many examples as you can.
+
+## Notes:
+If there is something you must add do it here.
 ```
-git clone https://github.com/GaryNLOL/GIntegers.git
+
+### Issues
+You're welcome to posts issues. Just use the following format:
+```markdown
+## Description:
+Describe your problem clearly.
+
+## Minimal reproducible example:
+Post the minimal piece of code that can reproduce the problem.
+
+## Expected VS actual output:
+A clear explanation about the output that you expected to obtain and the output you obtained.
+
+## Platform:
+Include your OS.
+
+## Notes:
+If there is something you must add do it here.
 ```
-2. Add the include files to your project's folder or to your compiler's search path.
-3. Add the following line to your `.cpp` file:
-- If you added it to your project's folder:
-```
-#include "include/GIntegers/GIntegers.hpp"
-```
-- If you added it to your compiler's path:
-```
-#include <GIntegers/GIntegers.hpp>
-```
-4. You're ready to start using GIntegers!
+
+## Useful links
+- [C++ Style Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CPP%20Style%20Guide.md).
+- [Discord Server.](https://discord.gg/RQN6gcDQwX)
