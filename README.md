@@ -15,11 +15,11 @@ GIntegers is an arbitrary integer size support library for C++.
 - Simple.
 - Very readable.
 
-## Platforms
+### Platforms
 - Cross-platform.
 
-## Dependencies
-None.
+### Dependencies
+- None, it just uses the standard C++ library.
 
 ## Contributing
 ### Pull requests
