@@ -1,12 +1,12 @@
-# GIntegers
+# Rubber Integers
 [![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/commits/main)
 [![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/issues)
 [![badge-license](https://img.shields.io/github/license/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/blob/main/LICENSE)
 [![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers/graphs/contributors)
 [![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GIntegers?style=for-the-badge)](https://github.com/GaryNLOL/GIntegers)
 
-## What is GIntegers?
-GIntegers is an arbitrary integer size support library for C++.
+## What is Rubber Integers?
+Rubber Integers is an arbitrary integer size support library for C++.
 
 ### Features
 - Scalable.
