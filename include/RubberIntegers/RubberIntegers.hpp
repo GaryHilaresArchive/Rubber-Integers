@@ -43,8 +43,8 @@ namespace RubberIntegers
     public:
         RubberInt();
         RubberInt(const std::string& newVal);
-        template<typename int_type, typename = typename std::enable_if<std::is_integral<int_type>::value>::type>
-        RubberInt(const int_type newVal)
+        template<typename IntType, typename = typename std::enable_if<std::is_integral<IntType>::value>::type>
+        RubberInt(const IntType newVal)
         {
             *this = RubberInt(std::to_string(newVal));
         }
