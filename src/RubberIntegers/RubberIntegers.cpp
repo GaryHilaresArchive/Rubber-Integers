@@ -1,4 +1,5 @@
 #include "../../include/RubberIntegers/RubberIntegers.hpp"
+#include <vector>
 
 bool RubberIntegers::RubberInt::isValidInput(const std::string& str)
 {
@@ -364,4 +365,9 @@ RubberIntegers::RubberInt RubberIntegers::RubberInt::abs() const
     if(!this->isNegative)
         return *this;
     return RubberInt(this->val);
+}
+
+std::string std::to_string(const RubberIntegers::RubberInt& num)
+{
+    return num.toString();
 }

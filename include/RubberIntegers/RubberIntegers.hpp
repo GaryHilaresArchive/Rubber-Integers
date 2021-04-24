@@ -30,7 +30,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <vector>
 
 namespace RubberIntegers
 {
@@ -76,3 +75,10 @@ namespace RubberIntegers
     std::ostream& operator<<(std::ostream& stream, const RubberInt& num);
     std::istream& operator>>(std::istream& stream, RubberInt& num);
 }
+
+#ifndef RUBBER_INTEGERS__DO_NOT_SPECIALIZE_STANDARD_LIBRARY
+namespace std
+{
+    string to_string(const RubberIntegers::RubberInt& num);
+}
+#endif // RUBBER_INTEGERS__DO_NOT_SPECIALIZE_STANDARD_LIBRARY
