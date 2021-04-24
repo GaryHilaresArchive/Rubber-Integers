@@ -37,14 +37,14 @@ RubberIntegers::RubberInt::RubberInt(const std::string& newVal)
     this->deleteTrailingZeroes();
 }
 
-std::string RubberIntegers::RubberInt::to_string() const
+std::string RubberIntegers::RubberInt::toString() const
 {
     return this->isNegative ? ("-" + this->val):(this->val);
 }
 
 std::ostream& RubberIntegers::operator<<(std::ostream& stream, const RubberInt& num)
 {
-    stream << num.to_string();
+    stream << num.toString();
     return stream;
 }
 

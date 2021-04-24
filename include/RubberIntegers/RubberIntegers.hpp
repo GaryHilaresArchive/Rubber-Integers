@@ -71,7 +71,7 @@ namespace RubberIntegers
         RubberInt operator%=(const RubberInt& num2);
         RubberInt factorial() const;
         RubberInt abs() const;
-        std::string to_string() const;
+        std::string toString() const;
     };
     std::ostream& operator<<(std::ostream& stream, const RubberInt& num);
     std::istream& operator>>(std::istream& stream, RubberInt& num);
