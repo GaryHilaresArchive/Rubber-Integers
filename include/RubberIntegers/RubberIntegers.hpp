@@ -32,8 +32,6 @@
 #include <string>
 #include <vector>
 
-static_assert('0' + 9 == '9',"The current encoding is not supported by GIntegers.");
-
 namespace RubberIntegers
 {
     class RubberInt
