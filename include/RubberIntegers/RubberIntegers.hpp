@@ -1,13 +1,7 @@
 /*******************************************************************************************
- *   X X X X  X X X X X  X     X  X X X X X  X X X X    X X X X  X X X X  X X X      X X X
- * X              X      X X   X      X      X        X          X        X     X  X
- * X   X X X      X      X  X  X      X      X X X X  X   X X X  X X X X  X X X      X X
- * X       X      X      X   X X      X      X        X       X  X        X   X          X
- *   X X X    X X X X X  X     X      X      X X X X    X X X    X X X X  X     X  X X X
- *******************************************************************************************
- *
- * This file is part of GIntegers by GaryNLOL.
+ * This file is part of Rubber Integers by GaryNLOL.
  * Special thanks to my family and µ's.
+ *******************************************************************************************
  *
  * MIT License
  * Copyright (c) 2020 GaryNLOL
@@ -32,6 +26,7 @@
  *
  *******************************************************************************************/
 
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -39,9 +34,9 @@
 
 static_assert('0' + 9 == '9',"The current encoding is not supported by GIntegers.");
 
-namespace GIntegers
+namespace RubberIntegers
 {
-    class GInt
+    class RubberInt
     {
     private:
         std::string val;
@@ -67,49 +62,49 @@ namespace GIntegers
             }
         }
     public:
-        GInt()
+        RubberInt()
         {
             this->isNegative = false;
             this->val = "0";
         }
-        GInt(const std::string& newVal)
+        RubberInt(const std::string& newVal)
         {
             if(!isValidInput(newVal))
-                throw std::invalid_argument("GInt::GInt(" + newVal + ")");
+                throw std::invalid_argument("RubberInt::RubberInt(" + newVal + ")");
             this->isNegative = (newVal[0] == '-');
             this->val = newVal.substr(isNegative,newVal.size()-isNegative);
             this->deleteTrailingZeroes();
         }
         template<typename int_type, typename = typename std::enable_if<std::is_integral<int_type>::value>::type>
-        GInt(const int_type newVal)
+        RubberInt(const int_type newVal)
         {
-            *this = GInt(std::to_string(newVal));
+            *this = RubberInt(std::to_string(newVal));
         }
         std::string to_string() const
         {
             return this->isNegative ? ("-" + this->val):(this->val);
         }
-        friend std::ostream& operator<<(std::ostream& stream, const GInt& num)
+        friend std::ostream& operator<<(std::ostream& stream, const RubberInt& num)
         {
             stream << num.to_string();
             return stream;
         }
-        friend std::istream& operator>>(std::istream& stream, GInt& num)
+        friend std::istream& operator>>(std::istream& stream, RubberInt& num)
         {
             std::string checkStr;
             stream >> checkStr;
-            num = GInt(checkStr);
+            num = RubberInt(checkStr);
             return stream;
         }
-        bool operator==(const GInt& num2) const
+        bool operator==(const RubberInt& num2) const
         {
             return (this->isNegative == num2.isNegative) && (this->val == num2.val);
         }
-        bool operator!=(const GInt& num2) const
+        bool operator!=(const RubberInt& num2) const
         {
             return !(*this == num2);
         }
-        bool operator>(const GInt& num2) const
+        bool operator>(const RubberInt& num2) const
         {
             if(this->isNegative && !num2.isNegative)
             {
@@ -163,21 +158,21 @@ namespace GIntegers
                     return false;
                 }
             }
-            throw std::invalid_argument("GInt::operator>(Not possible case)");
+            throw std::invalid_argument("RubberInt::operator>(Not possible case)");
         }
-        bool operator<=(const GInt& num2) const
+        bool operator<=(const RubberInt& num2) const
         {
             return *this == num2 || *this < num2;
         }
-        bool operator>=(const GInt& num2) const
+        bool operator>=(const RubberInt& num2) const
         {
             return *this == num2 || *this > num2;
         }
-        bool operator<(const GInt& num2) const
+        bool operator<(const RubberInt& num2) const
         {
             return !(*this == num2 || *this > num2);
         }
-        GInt operator+(const GInt& num2) const
+        RubberInt operator+(const RubberInt& num2) const
         {
             if(this->isNegative == num2.isNegative)
             {
@@ -200,14 +195,14 @@ namespace GIntegers
                     answer += char(result + '0');
                 }
                 answer = std::string(answer.rbegin(),answer.rend());
-                return GInt(this->isNegative ? ("-" + answer):(answer));
+                return RubberInt(this->isNegative ? ("-" + answer):(answer));
             }
             else
             {
-                const GInt& positive = this->isNegative ? num2.val:this->val;
-                const GInt& negative = this->isNegative ? this->val:num2.val;
+                const RubberInt& positive = this->isNegative ? num2.val:this->val;
+                const RubberInt& negative = this->isNegative ? this->val:num2.val;
                 if(positive == negative)
-                    return GInt(0);
+                    return RubberInt(0);
                 std::string answer;
                 int carry = 0;
                 bool resultIsNegative = negative > positive;
@@ -232,52 +227,52 @@ namespace GIntegers
                     answer += char(result + '0');
                 }
                 answer = (resultIsNegative ? "-":"") + std::string(answer.rbegin(), answer.rend());
-                return GInt(answer);
+                return RubberInt(answer);
             }
         }
-        GInt operator-(const GInt& num2) const
+        RubberInt operator-(const RubberInt& num2) const
         {
-            GInt invertedSignNum2(num2);
+            RubberInt invertedSignNum2(num2);
             invertedSignNum2.isNegative = !invertedSignNum2.isNegative;
             return *this + invertedSignNum2;
         }
-        GInt operator+=(const GInt& num2)
+        RubberInt operator+=(const RubberInt& num2)
         {
             *this = *this + num2;
             return *this;
         }
-        GInt operator-=(const GInt& num2)
+        RubberInt operator-=(const RubberInt& num2)
         {
             *this = *this - num2;
             return *this;
         }
-        GInt operator++(int)
+        RubberInt operator++(int)
         {
-            GInt ret = *this;
-            *this = *this + GInt(1);
+            RubberInt ret = *this;
+            *this = *this + RubberInt(1);
             return ret;
         }
-        GInt operator++()
+        RubberInt operator++()
         {
             *this = *this + 1;
             return *this;
         }
-        GInt operator--(int)
+        RubberInt operator--(int)
         {
-            GInt ret = *this;
-            *this = *this - GInt(1);
+            RubberInt ret = *this;
+            *this = *this - RubberInt(1);
             return ret;
         }
-        GInt operator--()
+        RubberInt operator--()
         {
-            *this = *this - GInt(1);
+            *this = *this - RubberInt(1);
             return *this;
         }
-        GInt operator*(const GInt& num2) const
+        RubberInt operator*(const RubberInt& num2) const
         {
             if(this->val == "0" || num2.val == "0")
-                return GInt(0);
-            std::vector<GInt> unitaryResults;
+                return RubberInt(0);
+            std::vector<RubberInt> unitaryResults;
             for(int i = this->val.size()-1; i >= 0; i--)
             {
                 std::string unitaryAnswer;
@@ -292,24 +287,24 @@ namespace GIntegers
                     unitaryAnswer += char(result + 48);
                 }
                 unitaryAnswer = std::string(unitaryAnswer.rbegin(),unitaryAnswer.rend()) + std::string(unitaryResults.size(),'0');
-                unitaryResults.push_back(GInt(unitaryAnswer));
+                unitaryResults.push_back(RubberInt(unitaryAnswer));
             }
-            GInt answer;
+            RubberInt answer;
             for(unsigned int i = 0; i < unitaryResults.size(); i++)
                 answer += unitaryResults[i];
             answer.isNegative = (this->isNegative != num2.isNegative);
             return answer;
         }
-        GInt operator*=(const GInt& num2)
+        RubberInt operator*=(const RubberInt& num2)
         {
             *this = *this * num2;
             return *this;
         }
-        GInt operator/(const GInt& num2) const
+        RubberInt operator/(const RubberInt& num2) const
         {
-            const GInt dividend = this->abs();
-            const GInt divisor = num2.abs();
-            GInt remainder;
+            const RubberInt dividend = this->abs();
+            const RubberInt divisor = num2.abs();
+            RubberInt remainder;
             remainder.val = "";
             std::string cocient;
             unsigned int currentIndex = 0;
@@ -336,18 +331,18 @@ namespace GIntegers
                 }
             }
             cocient = (this->isNegative == num2.isNegative ? "":"-") + cocient;
-            return GInt(cocient);
+            return RubberInt(cocient);
         }
-        GInt operator/=(const GInt& num2)
+        RubberInt operator/=(const RubberInt& num2)
         {
             *this = *this / num2;
             return *this;
         }
-        GInt operator%(const GInt& num2) const
+        RubberInt operator%(const RubberInt& num2) const
         {
-            const GInt dividend = this->abs();
-            const GInt divisor = num2.abs();
-            GInt remainder;
+            const RubberInt dividend = this->abs();
+            const RubberInt divisor = num2.abs();
+            RubberInt remainder;
             remainder.val = "";
             std::string cocient;
             unsigned int currentIndex = 0;
@@ -370,27 +365,27 @@ namespace GIntegers
             }
             return remainder;
         }
-        GInt operator%=(const GInt& num2)
+        RubberInt operator%=(const RubberInt& num2)
         {
             *this = *this % num2;
             return *this;
         }
-        GInt factorial() const
+        RubberInt factorial() const
         {
             if(this->isNegative)
-                throw std::invalid_argument("GInt::factorial(" + this->val + ")");
-            GInt result = 1;
-            for(GInt i = this->val; i > 0; i--)
+                throw std::invalid_argument("RubberInt::factorial(" + this->val + ")");
+            RubberInt result = 1;
+            for(RubberInt i = this->val; i > 0; i--)
             {
                 result *= i;
             }
             return result;
         }
-        GInt abs() const
+        RubberInt abs() const
         {
             if(!this->isNegative)
                 return *this;
-            return GInt(this->val);
+            return RubberInt(this->val);
         }
     };
 }
